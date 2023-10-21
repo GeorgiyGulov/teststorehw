@@ -104,3 +104,25 @@ describe("Remove from cart", () => {
     await browser.pause(10000);
   });
 });
+
+describe("Add item to Wishlist", () => {
+  it("Check the item is added to the cart", async () => {
+    await browser.url(`https://demowebshop.tricentis.com/login`);
+
+    await $('Input#Email.email').setValue('g.gulov@gmail.com');
+    await $('Input#Password.password').setValue('12345678');
+    await $('input.button-1.login-button').click();
+//     await browser.pause(2000);
+    await expect($('a.account')).toHaveTextContaining('g.gulov@gmail.com');
+    await browser.url('https://demowebshop.tricentis.com/apparel-shoes');
+    
+    await $('body > div.master-wrapper-page > div.master-wrapper-content > div.master-wrapper-main > div.center-2 > div.page.category-page > div.page-body > div.product-grid > div:nth-child(1) > div > div.details > div.add-info > div.buttons > input').click();
+    await $('//*[@id="add-to-wishlist-button-5"]').click();
+    var elWishName = $('//*[@id="product-details-form"]/div/div[1]/div[2]/div[1]/h1');
+    await $('/html/body/div[4]/div[1]/div[1]/div[2]/div[1]/ul/li[4]/a').click();
+   // await $('//*[@id="add-to-cart-button-72"]').click();
+   // await $('//*[@id="topcartlink"]/a/span[1]').click();
+  
+    expect (elWishName  = $('/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div[1]/form/table/tbody/tr/td[4]/a'));
+  })
+});
