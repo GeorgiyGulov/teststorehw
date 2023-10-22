@@ -99,9 +99,9 @@ describe("Remove from cart", () => {
     await $('/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/form/table/tbody/tr/td[5]/input').setValue('0');
     await browser.keys("\uE007");
     let message = $('/html/body/div[4]/div[1]/div[4]/div/div[2]/div[2]/div');
-    await browser.pause(10000);
+    await browser.pause(100);
     expect (message = 'Your Shopping Cart is empty!');
-    await browser.pause(10000);
+    await browser.pause(100);
   });
 });
 
@@ -126,3 +126,32 @@ describe("Add item to Wishlist", () => {
     expect (elWishName  = $('/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div[1]/form/table/tbody/tr/td[4]/a'));
   })
 });
+
+describe("Checkout", () => {
+  it("Check the checkout procedure", async () => {
+    await browser.url(`https://demowebshop.tricentis.com/login`);
+    await $('Input#Email.email').setValue('g.gulov@gmail.com');
+    await $('Input#Password.password').setValue('12345678');
+    await $('input.button-1.login-button').click();
+    await browser.url('https://demowebshop.tricentis.com/apparel-shoes'); 
+    await $('body > div.master-wrapper-page > div.master-wrapper-content > div.master-wrapper-main > div.center-2 > div.page.category-page > div.page-body > div.product-grid > div:nth-child(1) > div > div.details > div.add-info > div.buttons > input').click();
+    await $('//*[@id="add-to-cart-button-5"]').click();
+    await $('//*[@id="topcartlink"]/a').click();
+    await $('//*[@id="termsofservice"]').click();
+    await $('//*[@id="checkout"]').click();
+    await $('//*[@id="billing-buttons-container"]/input').click();
+    await browser.pause(1000);
+    await $('#shipping-buttons-container > input').click();
+    await browser.pause(1000);
+    await $('//*[@id="shipping-method-buttons-container"]/input').click();
+    await browser.pause(1000);
+    await $('//*[@id="payment-method-buttons-container"]/input').click();
+    await browser.pause(1000);
+    await $('//*[@id="payment-info-buttons-container"]/input').click();
+    await browser.pause(1000);
+    await $('//*[@id="confirm-order-buttons-container"]/input').click();
+    var title = $('/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/div[1]');
+    expect(title = "Your order has been successfully processed!");
+  });
+
+})
