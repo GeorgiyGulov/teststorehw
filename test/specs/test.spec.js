@@ -1,13 +1,10 @@
 describe('Test Store', () => {
   it('1. Should login with valid credentials', async () => {
     await browser.url(`https://demowebshop.tricentis.com/login`)
-
     await $('Input#Email.email').setValue('g.gulov@gmail.com')
     await $('Input#Password.password').setValue('12345678')
     await $('input.button-1.login-button').click();
-    //     await browser.pause(2000);
-    await expect($('a.account')).toHaveTextContaining(
-      'g.gulov@gmail.com');
+    await expect($('a.account')).toHaveTextContaining('g.gulov@gmail.com');
     await $('a.ico-logout').click();
   });
 
@@ -19,20 +16,16 @@ describe('Test Store', () => {
     const randomEmail = `${baseEmail}${randomNumber}@example.com`;
     return randomEmail;
     };
-
     await browser.url("https://demowebshop.tricentis.com/");
-    // browser.maximizeWindow();
     await $("a[href='/register']").click();
     await $("input#gender-male").click();
     await $("input[name='FirstName']").setValue("Ronald");
     await $("input[name='LastName']").setValue("McDonald");
     const randomEmail = genRandomEmail();
     await $('input#Email.text-box.single-line').setValue(randomEmail);
-    //     await browser.pause(5000);
     await $("input[name='Password']").setValue("123Testh");
     await $("input[name='ConfirmPassword']").setValue("123Testh");
     await $(".buttons #register-button").click();
-
     const confirmation = await $("div.result");
     expect(await confirmation.getText()).toEqual("Your registration completed");
   });
@@ -99,40 +92,30 @@ describe('Test Store', () => {
 
 it('6. Check the item is added to the Wishlist', async () => {
   await browser.url(`https://demowebshop.tricentis.com/login`);
-
   await $('Input#Email.email').setValue('g.gulov@gmail.com');
   await $('Input#Password.password').setValue('12345678');
   await $('input.button-1.login-button').click();
-  //     await browser.pause(2000);
   await expect($('a.account')).toHaveTextContaining('g.gulov@gmail.com');
   await browser.url('https://demowebshop.tricentis.com/apparel-shoes');
-
   await $('body > div.master-wrapper-page > div.master-wrapper-content > div.master-wrapper-main > div.center-2 > div.page.category-page > div.page-body > div.product-grid > div:nth-child(1) > div > div.details > div.add-info > div.buttons > input').click();
   await $('//*[@id="add-to-wishlist-button-5"]').click();
   var elWishName = $('//*[@id="product-details-form"]/div/div[1]/div[2]/div[1]/h1');
   await $('/html/body/div[4]/div[1]/div[1]/div[2]/div[1]/ul/li[4]/a').click();
-  // await $('//*[@id="add-to-cart-button-72"]').click();
-  // await $('//*[@id="topcartlink"]/a/span[1]').click();
-
   expect(elWishName = $('/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div[1]/form/table/tbody/tr/td[4]/a'));
 });
 
 it('7. Check the item is added to the cart', async () => {
   await browser.url(`https://demowebshop.tricentis.com/login`)
-
   await $('Input#Email.email').setValue('g.gulov@gmail.com')
   await $('Input#Password.password').setValue('12345678')
   await $('input.button-1.login-button').click();
-  //     await browser.pause(2000);
   await expect($('a.account')).toHaveTextContaining('g.gulov@gmail.com');
-
   await $('/html/body/div[4]/div[1]/div[2]/ul[1]/li[2]/a').click();
   await $('body > div.master-wrapper-page > div.master-wrapper-content > div.master-wrapper-main > div.center-2 > div.page.category-page > div.page-body > div.sub-category-grid > div:nth-child(1) > div > h2 > a').click();
   var elementName = $('//*[@id="product-details-form"]/div/div[1]/div[2]/div[1]/h1/text()');
   await $('/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]/div[1]/div/div[2]/div[3]/div[2]/input').click();
   await $('//*[@id="add-to-cart-button-72"]').click();
   await $('//*[@id="topcartlink"]/a/span[1]').click();
-
   expect(elementName = $('body > div.master-wrapper-page > div.master-wrapper-content > div.master-wrapper-main > div > div > div.page-body > div > form > table > tbody > tr > td.product > a'));
 });
 
